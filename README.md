@@ -73,7 +73,7 @@
 
 ### 服务配置（service-edt-plat/config/config.env）
 
-- `SERVICE_PORT`：服务端口，默认为 8080
+- `SERVER_MODE`：服务端口，默认为 8080
 - `SERVICE_MODE`：服务模式，支持 `http`、`sse`、`stdio`
 - `EDT_API_BASE_URL`：外部课程 API 的基础 URL
 
@@ -87,12 +87,12 @@
 {
   "mcpServers": {
     "edu-stdio": {
-      "command": "/path/to/mcp_courses/service-edt-plat/mcp-service",
+      "command": "/System/Volumes/Data/webcode/mcp_courses/service-edt-plat/mcp-service",
       "env": {
         "SERVER_MODE": "stdio",
-        "edtApiBaseURL": "https://edu.eluup.com/",
-        "servicePort": "6080",
-        "serviceMode": "stdio"
+        "SERVER_PORT": "6080",
+        "API_BASE_URL": "https://edu.eluup.com",
+        "API_AUTH_TOKEN": ""
       }
     }
   }

@@ -66,7 +66,7 @@
 
 配置文件 `config/config.env` 包含以下配置项：
 
-- `SERVICE_PORT`：服务端口，默认为8080
+- `SERVER_MODE`：服务端口，默认为8080
 - `SERVICE_MODE`：服务模式，支持 `http`、`sse`、`stdio`
 - `EDT_API_BASE_URL`：外部课程API的基础URL
 
@@ -133,7 +133,7 @@
       "command": "/System/Volumes/Data/webcode/mcp-tools-v2/output/mcp-server",
       "env": {
         "SERVER_MODE": "stdio",
-        "APIBaseURL": "https://edu.eluup.com/",
+        "APIBaseURL": "https://edu.eluup.com",
         "APIKey": "{}"
       }
     }
@@ -220,9 +220,9 @@ MIT
       "command": "/System/Volumes/Data/webcode/mcp_courses/service-edt-plat/mcp-service",
       "env": {
         "SERVER_MODE": "stdio",
-        "edtApiBaseURL": "https://edu.eluup.com/",
-        "servicePort": "6080",
-        "serviceMode": "stdio"
+        "SERVER_PORT": "6080",
+        "API_BASE_URL": "https://edu.eluup.com",
+        "API_AUTH_TOKEN": ""
       }
     }
   }
