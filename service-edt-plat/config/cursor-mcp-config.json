@@ -1,0 +1,19 @@
+{
+  "name": "EDT Course Service",
+  "description": "课程服务MCP接口，用于创建课程、章节和课时",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "create_course",
+      "description": "创建新课程"
+    },
+    {
+      "name": "create_chapter",
+      "description": "为课程创建章节"
+    },
+    {
+      "name": "create_lesson",
+      "description": "为章节创建课时"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"log"
+	"os"
+)
+
+// JSON-RPC request structure
+type JSONRPCRequest struct {
+	JSONRPC string        `json:"jsonrpc"`
+	Method  string        `json:"method"`
+	Params  []interface{} `json:"params"`
+	ID      int           `json:"id"`
+}
+
+// JSON-RPC response structure
+type JSONRPCResponse struct {
+	JSONRPC string      `json:"jsonrpc"`
+	Result  interface{} `json:"result,omitempty"`
+	Error   interface{} `json:"error,omitempty"`
+	ID      int         `json:"id"`
+}
+
+// Tool call request structure
+type CallToolRequest struct {
+	Tool     string                 `json:"tool"`
+	Args     map[string]interface{} `json:"args"`
+	Thought  string                 `json:"thought,omitempty"`
+	Language string                 `json:"language,omitempty"`
+}
+
+func main() {
+	// 构建工具调用请求
+	req := JSONRPCRequest{
+		JSONRPC: "2.0",
+		Method:  "callTool",
+		Params: []interface{}{
+			CallToolRequest{
+				Tool: "create_course",
+				Args: map[string]interface{}{
+					"title":        "Go语言从入门到精通",
+					"description":  "本课程将带你从Go语言基础开始，逐步深入到高级特性，包括并发编程、网络编程、数据库操作等，帮助你成为Go语言专家。",
+					"price":        "999",
+					"category_id":  "1",
+				},
+			},
+		},
+		ID: 1,
+	}
+
+	// 编码请求为 JSON
+	reqJSON, err := json.Marshal(req)
+	if err != nil {
+		log.Fatalf("Failed to marshal request: %v", err)
+	}
+
+	// 输出请求
+	fmt.Printf("%s\n", reqJSON)
+
+	// 读取响应
+	decoder := json.NewDecoder(os.Stdin)
+	var resp JSONRPCResponse
+	if err := decoder.Decode(&resp); err != nil {
+		log.Fatalf("Failed to decode response: %v", err)
+	}
+
+	// 输出响应
+	respJSON, err := json.MarshalIndent(resp, "", "  ")
+	if err != nil {
+		log.Fatalf("Failed to marshal response: %v", err)
+	}
+	fmt.Printf("Response:\n%s\n", respJSON)
+}
