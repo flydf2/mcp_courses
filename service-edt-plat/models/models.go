@@ -107,3 +107,38 @@ type Lesson struct {
 	DocumentURL string `json:"document_url"`
 	Content     string `json:"content"`
 }
+
+// CreateCategoryRequest 创建分类请求
+type CreateCategoryRequest struct {
+	Name        string `json:"name"`
+	Description string `json:"description,omitempty"`
+	ParentID    int    `json:"parent_id,omitempty"`
+	SortOrder   int    `json:"sort_order,omitempty"`
+}
+
+// UpdateCategoryRequest 更新分类请求
+type UpdateCategoryRequest struct {
+	Name        string `json:"name"`
+	Description string `json:"description,omitempty"`
+	ParentID    int    `json:"parent_id,omitempty"`
+	SortOrder   int    `json:"sort_order,omitempty"`
+}
+
+// Category 分类响应结构
+type Category struct {
+	ID          int    `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	ParentID    int    `json:"parent_id"`
+	SortOrder   int    `json:"sort_order"`
+	CreatedAt   string `json:"created_at"`
+	UpdatedAt   string `json:"updated_at"`
+}
+
+// CategoryListResponse 分类列表响应结构
+type CategoryListResponse struct {
+	List     []Category `json:"list"`
+	Total    int        `json:"total"`
+	Page     int        `json:"page"`
+	PageSize int        `json:"pageSize"`
+}

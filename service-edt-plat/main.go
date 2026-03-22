@@ -42,6 +42,10 @@ func main() {
 	lessonTool.RegisterTools(mcpServer)
 	log.Println("已注册创建课时工具")
 
+	categoryTool := tools.NewCategoryTool(edtClient)
+	categoryTool.RegisterTools(mcpServer)
+	log.Println("已注册分类管理工具")
+
 	if serverMode == "stdio" {
 		// 使用stdio模式启动服务器
 		log.Println("使用stdio模式启动服务器")

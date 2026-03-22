@@ -186,3 +186,223 @@ func (c *EDTClient) GetCourseByID(courseID string) (string, error) {
 	// 直接返回完整的响应字符串
 	return string(bodyBytes), nil
 }
+
+// CreateCategory 创建分类
+func (c *EDTClient) CreateCategory(req models.CreateCategoryRequest) (string, error) {
+	url := fmt.Sprintf("%s/api/v1/external/categories", c.BaseURL)
+
+	reqBody, err := json.Marshal(req)
+	if err != nil {
+		return "", fmt.Errorf("failed to marshal request: %w", err)
+	}
+
+	httpReq, err := http.NewRequest("POST", url, bytes.NewBuffer(reqBody))
+	if err != nil {
+		return "", fmt.Errorf("failed to create request: %w", err)
+	}
+
+	httpReq.Header.Set("Content-Type", "application/json")
+	if c.AuthToken != "" {
+		httpReq.Header.Set("Authorization", c.AuthToken)
+	}
+
+	// 记录请求
+	log.Printf("CreateCategory Request: %q", url)
+	resp, err := c.HTTPClient.Do(httpReq)
+	if err != nil {
+		return "", fmt.Errorf("failed to send request: %w", err)
+	}
+	defer resp.Body.Close()
+
+	// 读取响应体
+	bodyBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", fmt.Errorf("failed to read response body: %w", err)
+	}
+
+	// 记录响应
+	log.Printf("CreateCategory Response: %s", string(bodyBytes))
+
+	// 直接返回完整的响应字符串
+	return string(bodyBytes), nil
+}
+
+// GetCategories 获取分类列表
+func (c *EDTClient) GetCategories(page, pageSize, parentID int) (string, error) {
+	url := fmt.Sprintf("%s/api/v1/external/categories?page=%d&pageSize=%d&parentID=%d", c.BaseURL, page, pageSize, parentID)
+
+	httpReq, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return "", fmt.Errorf("failed to create request: %w", err)
+	}
+
+	httpReq.Header.Set("Content-Type", "application/json")
+	if c.AuthToken != "" {
+		httpReq.Header.Set("Authorization", c.AuthToken)
+	}
+
+	// 记录请求
+	log.Printf("GetCategories Request: %q", url)
+	resp, err := c.HTTPClient.Do(httpReq)
+	if err != nil {
+		return "", fmt.Errorf("failed to send request: %w", err)
+	}
+	defer resp.Body.Close()
+
+	// 读取响应体
+	bodyBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", fmt.Errorf("failed to read response body: %w", err)
+	}
+
+	// 记录响应
+	log.Printf("GetCategories Response: %s", string(bodyBytes))
+
+	// 直接返回完整的响应字符串
+	return string(bodyBytes), nil
+}
+
+// GetCategoryByID 获取分类详情
+func (c *EDTClient) GetCategoryByID(categoryID int) (string, error) {
+	url := fmt.Sprintf("%s/api/v1/external/categories/%d", c.BaseURL, categoryID)
+
+	httpReq, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return "", fmt.Errorf("failed to create request: %w", err)
+	}
+
+	httpReq.Header.Set("Content-Type", "application/json")
+	if c.AuthToken != "" {
+		httpReq.Header.Set("Authorization", c.AuthToken)
+	}
+
+	// 记录请求
+	log.Printf("GetCategoryByID Request: %q", url)
+	resp, err := c.HTTPClient.Do(httpReq)
+	if err != nil {
+		return "", fmt.Errorf("failed to send request: %w", err)
+	}
+	defer resp.Body.Close()
+
+	// 读取响应体
+	bodyBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", fmt.Errorf("failed to read response body: %w", err)
+	}
+
+	// 记录响应
+	log.Printf("GetCategoryByID Response: %s", string(bodyBytes))
+
+	// 直接返回完整的响应字符串
+	return string(bodyBytes), nil
+}
+
+// UpdateCategory 更新分类
+func (c *EDTClient) UpdateCategory(categoryID int, req models.UpdateCategoryRequest) (string, error) {
+	url := fmt.Sprintf("%s/api/v1/external/categories/%d", c.BaseURL, categoryID)
+
+	reqBody, err := json.Marshal(req)
+	if err != nil {
+		return "", fmt.Errorf("failed to marshal request: %w", err)
+	}
+
+	httpReq, err := http.NewRequest("PUT", url, bytes.NewBuffer(reqBody))
+	if err != nil {
+		return "", fmt.Errorf("failed to create request: %w", err)
+	}
+
+	httpReq.Header.Set("Content-Type", "application/json")
+	if c.AuthToken != "" {
+		httpReq.Header.Set("Authorization", c.AuthToken)
+	}
+
+	// 记录请求
+	log.Printf("UpdateCategory Request: %q", url)
+	resp, err := c.HTTPClient.Do(httpReq)
+	if err != nil {
+		return "", fmt.Errorf("failed to send request: %w", err)
+	}
+	defer resp.Body.Close()
+
+	// 读取响应体
+	bodyBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", fmt.Errorf("failed to read response body: %w", err)
+	}
+
+	// 记录响应
+	log.Printf("UpdateCategory Response: %s", string(bodyBytes))
+
+	// 直接返回完整的响应字符串
+	return string(bodyBytes), nil
+}
+
+// DeleteCategory 删除分类
+func (c *EDTClient) DeleteCategory(categoryID int) (string, error) {
+	url := fmt.Sprintf("%s/api/v1/external/categories/%d", c.BaseURL, categoryID)
+
+	httpReq, err := http.NewRequest("DELETE", url, nil)
+	if err != nil {
+		return "", fmt.Errorf("failed to create request: %w", err)
+	}
+
+	httpReq.Header.Set("Content-Type", "application/json")
+	if c.AuthToken != "" {
+		httpReq.Header.Set("Authorization", c.AuthToken)
+	}
+
+	// 记录请求
+	log.Printf("DeleteCategory Request: %q", url)
+	resp, err := c.HTTPClient.Do(httpReq)
+	if err != nil {
+		return "", fmt.Errorf("failed to send request: %w", err)
+	}
+	defer resp.Body.Close()
+
+	// 读取响应体
+	bodyBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", fmt.Errorf("failed to read response body: %w", err)
+	}
+
+	// 记录响应
+	log.Printf("DeleteCategory Response: %s", string(bodyBytes))
+
+	// 直接返回完整的响应字符串
+	return string(bodyBytes), nil
+}
+
+// GetAllCategories 获取所有分类
+func (c *EDTClient) GetAllCategories() (string, error) {
+	url := fmt.Sprintf("%s/api/v1/external/categories/all", c.BaseURL)
+
+	httpReq, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return "", fmt.Errorf("failed to create request: %w", err)
+	}
+
+	httpReq.Header.Set("Content-Type", "application/json")
+	if c.AuthToken != "" {
+		httpReq.Header.Set("Authorization", c.AuthToken)
+	}
+
+	// 记录请求
+	log.Printf("GetAllCategories Request: %q", url)
+	resp, err := c.HTTPClient.Do(httpReq)
+	if err != nil {
+		return "", fmt.Errorf("failed to send request: %w", err)
+	}
+	defer resp.Body.Close()
+
+	// 读取响应体
+	bodyBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", fmt.Errorf("failed to read response body: %w", err)
+	}
+
+	// 记录响应
+	log.Printf("GetAllCategories Response: %s", string(bodyBytes))
+
+	// 直接返回完整的响应字符串
+	return string(bodyBytes), nil
+}
